@@ -48,7 +48,7 @@ public class Recommender {
     }
 
     @PostConstruct
-    private MoviesDO qMovies() {
+    private MoviesDO qMoives() {
         if(qMoviesDO == null){
             qMoviesDO = new MoviesDO();
             List<MovieDO> data = moviesDao.findMoviesBySize(10);
@@ -60,7 +60,7 @@ public class Recommender {
     public MoviesDO getMovies(Integer userId,int size) {
         MoviesDO moviesDO = new MoviesDO();
         if(userId == null) { ;
-            return qMovies();
+            return qMoives();
         }
         try {
             List<RecommendedItem> recommendedItemList = recommender.recommend(userId, size);

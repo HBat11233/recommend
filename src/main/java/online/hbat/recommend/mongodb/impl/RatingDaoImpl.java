@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class RatingDaoImpl implements RatingsDao {
 
     @Override
     public void insertRatingDOList(List<RatingDO> ratingDOList) {
-        mongoTemplate.insert(ratingDOList,RatingDO.class);
+        mongoTemplate.insert(ratingDOList, RatingDO.class);
     }
 
     @Override
@@ -92,14 +93,15 @@ public class RatingDaoImpl implements RatingsDao {
     }
 
     @Override
+    @PostConstruct
     public Long getNewUserId() {
         if (newUserId == null) {
             Query query = new Query();
             query.with(Sort.by(Sort.Direction.DESC, "userId"));
             newUserId = mongoTemplate.findOne(query, RatingDO.class).getUserId() + 1;
-        }else {
-            newUserId += 1;
         }
-        return newUserId;
+        Long temp = newUserId;
+        newUserId += 1;
+        return temp;
     }
 }
