@@ -35,13 +35,31 @@ public class MongoModel implements DataModel {
 
     private Date mongoTimestamp;
     private DataModel delegate;
+    List<RatingDO> ratingDOList;
+    private int skip = 0;
 
-    @PostConstruct
-    private void buildModel() throws UnknownHostException {
+    private int getSkip() {
+        skip += ratingsDao.getFindSize();
+        skip %= ratingsDao.getAllUserSize() - ratingsDao.getFindSize();
+        return skip;
+    }
+
+
+    public void download() {
+        ratingDOList = ratingsDao.findSizeUserID(ratingsDao.getFindSize().intValue(), getSkip());
+    }
+
+    public void addRatingDOList(List<RatingDO> ratingDOs) {
+        ratingDOList.addAll(ratingDOs);
+        ratingDOs.stream().forEach(ratingDO -> ratingsDao.saveRatingDO(ratingDO));
+        buildModel();
+    }
+
+
+    private void buildModel() {
         mongoTimestamp = new Date(0);
         FastByIDMap<Collection<Preference>> userIDPrefMap = new FastByIDMap<Collection<Preference>>();
 
-        List<RatingDO> ratingDOList = ratingsDao.findAllUserID();
         for (RatingDO ratingDO : ratingDOList) {
 //            RatingDO ratingDOTemp = ratingsDao.findRatingDOById(ratingDO.getId());
             Collection<Preference> userPrefs = userIDPrefMap.get(ratingDO.getUserId());

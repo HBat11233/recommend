@@ -16,4 +16,12 @@ public interface RatingsDao {
     List<RatingDO> findAllUserID();
 
     RatingDO findRatingDONotInIdList(List<String> ids);
+
+    List<RatingDO> findSizeUserID(int size,int skip);
+
+    Long getAllUserSize();
+
+    Long getFindSize();
+
+    Long getNewUserId();
 }

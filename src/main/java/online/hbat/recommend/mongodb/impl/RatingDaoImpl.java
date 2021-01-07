@@ -4,6 +4,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import online.hbat.recommend.DO.RatingDO;
 import online.hbat.recommend.mongodb.RatingsDao;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -57,6 +58,24 @@ public class RatingDaoImpl implements RatingsDao {
     }
 
     @Override
+    public List<RatingDO> findSizeUserID(int size,int skip) {
+        Query query = new BasicQuery("{}").skip(skip).limit(size);
+        List<RatingDO> user = mongoTemplate.find(query,RatingDO.class);
+        return user;
+    }
+
+    @Override
+    public Long getAllUserSize() {
+        Query query = new BasicQuery("{}");
+        return mongoTemplate.count(query,RatingDO.class);
+    }
+
+    @Override
+    public Long getFindSize() {
+        return getAllUserSize()/700;
+    }
+
+    @Override
     public RatingDO findRatingDONotInIdList(List<String> ids) {
         if(ids ==null)
             ids = new ArrayList<>();
@@ -64,5 +83,12 @@ public class RatingDaoImpl implements RatingsDao {
         Query query = new BasicQuery(json);
         RatingDO ratingDO = mongoTemplate.findOne(query,RatingDO.class);
         return ratingDO;
+    }
+
+    @Override
+    public Long getNewUserId() {
+        Query query = new Query();
+        query.with(Sort.by(Sort.Direction.DESC,"userId"));
+        return mongoTemplate.findOne(query,RatingDO.class).getUserId()+1;
     }
 }
