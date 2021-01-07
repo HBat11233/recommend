@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@Document("ratings")
+@Document("ratingssmall")
 public class RatingDO implements Serializable {
 
     @Id
