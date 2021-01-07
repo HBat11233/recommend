@@ -22,6 +22,8 @@ public class RatingDaoImpl implements RatingsDao {
     @Resource
     MongoTemplate mongoTemplate;
 
+    Long size = null;
+
     @Override
     public void saveRatingDO(RatingDO ratingDO) {
         mongoTemplate.save(ratingDO);
@@ -53,42 +55,45 @@ public class RatingDaoImpl implements RatingsDao {
     @Override
     public List<RatingDO> findAllUserID() {
         Query query = new BasicQuery("{}");
-        List<RatingDO> user = mongoTemplate.find(query,RatingDO.class);
+        List<RatingDO> user = mongoTemplate.find(query, RatingDO.class);
         return user;
     }
 
     @Override
-    public List<RatingDO> findSizeUserID(int size,int skip) {
+    public List<RatingDO> findSizeUserID(int size, int skip) {
         Query query = new BasicQuery("{}").skip(skip).limit(size);
-        List<RatingDO> user = mongoTemplate.find(query,RatingDO.class);
+        List<RatingDO> user = mongoTemplate.find(query, RatingDO.class);
         return user;
     }
 
     @Override
-    public Long getAllUserSize() {
-        Query query = new BasicQuery("{}");
-        return mongoTemplate.count(query,RatingDO.class);
+    public Long getAllUserSize(boolean toDo) {
+        if (size == null || toDo) {
+            Query query = new BasicQuery("{}");
+            size = mongoTemplate.count(query, RatingDO.class);
+        }
+        return size;
     }
 
     @Override
     public Long getFindSize() {
-        return getAllUserSize()/700;
+        return getAllUserSize(false) / 700;
     }
 
     @Override
     public RatingDO findRatingDONotInIdList(List<String> ids) {
-        if(ids ==null)
+        if (ids == null)
             ids = new ArrayList<>();
-        String json = "{_id:{$nin:"+ids+"}}";
+        String json = "{_id:{$nin:" + ids + "}}";
         Query query = new BasicQuery(json);
-        RatingDO ratingDO = mongoTemplate.findOne(query,RatingDO.class);
+        RatingDO ratingDO = mongoTemplate.findOne(query, RatingDO.class);
         return ratingDO;
     }
 
     @Override
     public Long getNewUserId() {
         Query query = new Query();
-        query.with(Sort.by(Sort.Direction.DESC,"userId"));
-        return mongoTemplate.findOne(query,RatingDO.class).getUserId()+1;
+        query.with(Sort.by(Sort.Direction.DESC, "userId"));
+        return mongoTemplate.findOne(query, RatingDO.class).getUserId() + 1;
     }
 }

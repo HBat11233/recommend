@@ -19,7 +19,7 @@ public interface RatingsDao {
 
     List<RatingDO> findSizeUserID(int size,int skip);
 
-    Long getAllUserSize();
+    Long getAllUserSize(boolean toDo);
 
     Long getFindSize();
 

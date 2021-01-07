@@ -40,7 +40,7 @@ public class MongoModel implements DataModel {
 
     private int getSkip() {
         skip += ratingsDao.getFindSize();
-        skip %= ratingsDao.getAllUserSize() - ratingsDao.getFindSize();
+        skip %= ratingsDao.getAllUserSize(false) - ratingsDao.getFindSize();
         return skip;
     }
 
@@ -51,7 +51,7 @@ public class MongoModel implements DataModel {
 
     public void addRatingDOList(List<RatingDO> ratingDOs) {
         ratingDOList.addAll(ratingDOs);
-        ratingDOs.stream().forEach(ratingDO -> ratingsDao.saveRatingDO(ratingDO));
+//        ratingDOs.stream().forEach(ratingDO -> ratingsDao.saveRatingDO(ratingDO));
         buildModel();
     }
 
