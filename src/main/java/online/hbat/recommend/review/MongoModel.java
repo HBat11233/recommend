@@ -43,13 +43,13 @@ public class MongoModel implements DataModel {
 
         List<RatingDO> ratingDOList = ratingsDao.findAllUserID();
         for (RatingDO ratingDO : ratingDOList) {
-            RatingDO ratingDOTemp = ratingsDao.findRatingDOById(ratingDO.getId());
-            Collection<Preference> userPrefs = userIDPrefMap.get(ratingDOTemp.getUserId());
+//            RatingDO ratingDOTemp = ratingsDao.findRatingDOById(ratingDO.getId());
+            Collection<Preference> userPrefs = userIDPrefMap.get(ratingDO.getUserId());
             if (userPrefs == null) {
                 userPrefs = Lists.newArrayListWithCapacity(2);
-                userIDPrefMap.put(ratingDOTemp.getUserId(), userPrefs);
+                userIDPrefMap.put(ratingDO.getUserId(), userPrefs);
             }
-            userPrefs.add(new GenericPreference(ratingDOTemp.getUserId(), ratingDOTemp.getMovieId(), ratingDOTemp.getRating()));
+            userPrefs.add(new GenericPreference(ratingDO.getUserId(), ratingDO.getMovieId(), ratingDO.getRating()));
         }
         delegate = new GenericDataModel(GenericDataModel.toDataMap(userIDPrefMap, true));
     }

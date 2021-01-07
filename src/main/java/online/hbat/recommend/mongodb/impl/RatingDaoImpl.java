@@ -51,7 +51,7 @@ public class RatingDaoImpl implements RatingsDao {
 
     @Override
     public List<RatingDO> findAllUserID() {
-        Query query = new BasicQuery("{}","{\"userId\":true}");
+        Query query = new BasicQuery("{}");
         List<RatingDO> user = mongoTemplate.find(query,RatingDO.class);
         return user;
     }
