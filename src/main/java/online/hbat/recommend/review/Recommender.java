@@ -46,7 +46,6 @@ public class Recommender {
     }
 
     public MoviesDO getMovies(Integer userId,int size) {
-        dataModel.download();
         MoviesDO moviesDO = new MoviesDO();
         if(userId == null) {
             List<MovieDO> data = moviesDao.findMoviesBySize(size);

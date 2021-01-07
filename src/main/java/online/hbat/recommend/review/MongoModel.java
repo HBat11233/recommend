@@ -1,12 +1,8 @@
 package online.hbat.recommend.review;
 
 import com.google.common.collect.Lists;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCursor;
 import online.hbat.recommend.DO.RatingDO;
 import online.hbat.recommend.mongodb.RatingsDao;
-import org.apache.mahout.cf.taste.common.NoSuchItemException;
-import org.apache.mahout.cf.taste.common.NoSuchUserException;
 import org.apache.mahout.cf.taste.common.Refreshable;
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.common.FastByIDMap;
@@ -21,11 +17,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.net.UnknownHostException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class MongoModel implements DataModel {
@@ -44,14 +38,17 @@ public class MongoModel implements DataModel {
         return skip;
     }
 
-
+    @PostConstruct
     public void download() {
         ratingDOList = ratingsDao.findSizeUserID(ratingsDao.getFindSize().intValue(), getSkip());
     }
 
     public void addRatingDOList(List<RatingDO> ratingDOs) {
+        if (ratingDOs.size() > 0) {
+            ratingDOList.subList(0, ratingDOs.size()).clear();
+        }
         ratingDOList.addAll(ratingDOs);
-//        ratingDOs.stream().forEach(ratingDO -> ratingsDao.saveRatingDO(ratingDO));
+        ratingDOs.stream().forEach(ratingDO -> ratingsDao.saveRatingDO(ratingDO));
         buildModel();
     }
 

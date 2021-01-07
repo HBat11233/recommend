@@ -1,0 +1,14 @@
+online/hbat/recommend/DO/RatingDO.class
+online/hbat/recommend/mongodb/RatingsDao.class
+online/hbat/recommend/review/Recommender.class
+online/hbat/recommend/mongodb/MoviesDao.class
+online/hbat/recommend/mongodb/impl/RatingDaoImpl.class
+online/hbat/recommend/mongodb/impl/MoviesDaoImpl.class
+online/hbat/recommend/RecommendApplication.class
+online/hbat/recommend/DO/RatingsDO.class
+online/hbat/recommend/DO/MovieDO.class
+online/hbat/recommend/DO/MoviesDO.class
+online/hbat/recommend/review/MongoModel.class
+online/hbat/recommend/config/CORSConfig.class
+online/hbat/recommend/controller/MainController.class
+online/hbat/recommend/config/CORSConfig$1.class
