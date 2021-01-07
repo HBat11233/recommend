@@ -24,16 +24,16 @@
 			<artifactId>mahout-core</artifactId>
 			<version>0.9</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.apache.mahout</groupId>-->
-<!--			<artifactId>mahout-math</artifactId>-->
-<!--			<version>0.9</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.apache.mahout</groupId>-->
-<!--			<artifactId>mahout-integration</artifactId>-->
-<!--			<version>0.9</version>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.apache.mahout</groupId>
+			<artifactId>mahout-math</artifactId>
+			<version>0.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mahout</groupId>
+			<artifactId>mahout-integration</artifactId>
+			<version>0.9</version>
+		</dependency>
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
@@ -43,11 +43,6 @@
 			<groupId>org.mongodb</groupId>
 			<artifactId>bson</artifactId>
 			<version>3.12.7</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongodb-driver-core</artifactId>
-			<version>4.1.1</version>
 		</dependency>
 
 		<dependency>

@@ -23,6 +23,7 @@ public class RatingDaoImpl implements RatingsDao {
     MongoTemplate mongoTemplate;
 
     Long size = null;
+    Long newUserId = null;
 
     @Override
     public void insertRatingDOList(List<RatingDO> ratingDOList) {
@@ -92,8 +93,13 @@ public class RatingDaoImpl implements RatingsDao {
 
     @Override
     public Long getNewUserId() {
-        Query query = new Query();
-        query.with(Sort.by(Sort.Direction.DESC, "userId"));
-        return mongoTemplate.findOne(query, RatingDO.class).getUserId() + 1;
+        if (newUserId == null) {
+            Query query = new Query();
+            query.with(Sort.by(Sort.Direction.DESC, "userId"));
+            newUserId = mongoTemplate.findOne(query, RatingDO.class).getUserId() + 1;
+        }else {
+            newUserId += 1;
+        }
+        return newUserId;
     }
 }
