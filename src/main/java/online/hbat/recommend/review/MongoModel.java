@@ -48,7 +48,7 @@ public class MongoModel implements DataModel {
             ratingDOList.subList(0, ratingDOs.size()).clear();
         }
         ratingDOList.addAll(ratingDOs);
-        ratingDOs.stream().forEach(ratingDO -> ratingsDao.saveRatingDO(ratingDO));
+        ratingsDao.insertRatingDOList(ratingDOs);
         buildModel();
     }
 

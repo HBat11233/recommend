@@ -25,8 +25,8 @@ public class RatingDaoImpl implements RatingsDao {
     Long size = null;
 
     @Override
-    public void saveRatingDO(RatingDO ratingDO) {
-        mongoTemplate.insert(ratingDO);
+    public void insertRatingDOList(List<RatingDO> ratingDOList) {
+        mongoTemplate.insert(ratingDOList,RatingDO.class);
     }
 
     @Override

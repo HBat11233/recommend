@@ -5,7 +5,7 @@ import online.hbat.recommend.DO.RatingDO;
 import java.util.List;
 
 public interface RatingsDao {
-    void saveRatingDO(RatingDO ratingDO);
+    public void insertRatingDOList(List<RatingDO> ratingDOList);
 
     void removeRatingDO(String id);
 
